@@ -1,12 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   getHello(): string {
-    return this.appService.getHello();
+    return `
+    <!doctype html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+      <h1 class="text-3xl font-bold underline">
+        Hello world!
+      </h1>
+    </body>
+    </html>
+  `;
   }
 }

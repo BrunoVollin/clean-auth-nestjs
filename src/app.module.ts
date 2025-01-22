@@ -1,18 +1,20 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './infrastructure/modules/auth.module';
+import { AppController } from './app.controller';
+import { TypeORMDatabaseModule } from './infrastructure/database/typeorm/typeorm-database.module';
+import { AuthenticateUserUseCase } from './application/use-cases/authenticate-user.use-case';
+import { InMemoryDatabaseModule } from './infrastructure/database/in-memory/in-memory-database.module';
+import { DashboardModule } from './infrastructure/modules/dashboard.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'your-username',
-      password: 'your-password',
-      database: 'task_management',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    AuthModule,
+    // InMemoryDatabaseModule,
+    TypeORMDatabaseModule,
+    DashboardModule,
   ],
+  controllers: [AppController],
+  providers: [AuthenticateUserUseCase],
 })
 export class AppModule {}
