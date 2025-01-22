@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
   Global,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
@@ -13,6 +14,7 @@ import { Request } from 'express';
 export class JwtAuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -25,7 +27,7 @@ export class JwtAuthGuard implements CanActivate {
     try {
 
       const payload = this.jwtService.verify(token, {
-        secret: 'secretKey',
+        secret: this.configService.get('JWT_SECRET'),
       });
       request.user = payload; 
     } catch (err) {

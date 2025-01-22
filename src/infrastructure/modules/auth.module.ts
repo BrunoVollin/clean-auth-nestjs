@@ -5,13 +5,17 @@ import { InMemoryUserRepository } from '../database/in-memory/in-memory-user.rep
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { CreateUserUsecase } from 'src/application/use-cases/create-user.use-case';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Global()
 @Module({
   imports: [
-    JwtModule.register({
-      secret: 'secretKey',
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'), // Busca o segredo do .env
+        signOptions: { expiresIn: '1h' },
+      }),
     }),
   ],
   controllers: [AuthController],
