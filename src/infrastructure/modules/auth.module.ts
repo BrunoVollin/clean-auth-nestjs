@@ -10,20 +10,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Global()
 @Module({
   imports: [
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
+      inject: [ConfigService], 
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'), // Busca o segredo do .env
+        secret: configService.get<string>('JWT_SECRET'),
         signOptions: { expiresIn: '1h' },
       }),
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthenticateUserUseCase,
-    CreateUserUsecase,
-    JwtAuthGuard,
-  ],
-  exports: [JwtAuthGuard, JwtModule]
+  providers: [AuthenticateUserUseCase, CreateUserUsecase, JwtAuthGuard],
+  exports: [JwtAuthGuard, JwtModule],
 })
 export class AuthModule {}
