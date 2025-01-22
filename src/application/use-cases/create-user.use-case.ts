@@ -1,4 +1,3 @@
-// src/application/use-cases/authenticate-user.use-case.ts
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/domain/entities/user.entity';

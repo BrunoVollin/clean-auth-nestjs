@@ -1,4 +1,3 @@
-// src/infrastructure/database/in-memory-user.repository.ts
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../../../domain/repositories/user.repository';
 import { User } from '../../../domain/entities/user.entity';

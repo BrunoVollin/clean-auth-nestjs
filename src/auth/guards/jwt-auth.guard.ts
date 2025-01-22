@@ -1,4 +1,3 @@
-// src/auth/guards/jwt-auth.guard.ts
 import {
   Injectable,
   CanActivate,
@@ -28,7 +27,7 @@ export class JwtAuthGuard implements CanActivate {
       const payload = this.jwtService.verify(token, {
         secret: 'secretKey',
       });
-      request.user = payload; // Anexa os dados do usuário na requisição
+      request.user = payload; 
     } catch (err) {
         console.error(err);
       throw new UnauthorizedException('Invalid token');
@@ -40,7 +39,7 @@ export class JwtAuthGuard implements CanActivate {
   private extractTokenFromHeader(request: Request): string | undefined {
     const authHeader = request.headers.authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
-      return authHeader.slice(7); // Remove "Bearer " do início
+      return authHeader.slice(7); 
     }
     return undefined;
   }

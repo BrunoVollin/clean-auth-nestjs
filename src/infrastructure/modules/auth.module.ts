@@ -1,4 +1,3 @@
-// src/infrastructure/modules/auth.module.ts
 import { Global, Module } from '@nestjs/common';
 import { AuthController } from '../controllers/auth.controller';
 import { AuthenticateUserUseCase } from '../../application/use-cases/authenticate-user.use-case';

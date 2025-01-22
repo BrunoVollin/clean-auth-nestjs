@@ -16,7 +16,6 @@ export class TypeORMUserRepository implements UserRepository {
     const userEntity = await this.repository.findOneBy({ email });
     if (!userEntity) return null;
 
-    // Converte a entidade TypeORM para a entidade do domínio
     return new User(userEntity.id, userEntity.email, userEntity.password);
   }
 
@@ -29,7 +28,6 @@ export class TypeORMUserRepository implements UserRepository {
 
     const savedUser = await this.repository.save(userEntity);
 
-    // Converte a entidade TypeORM para a entidade do domínio
     return new User(savedUser.id, savedUser.email, savedUser.password);
   }
 }

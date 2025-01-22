@@ -1,4 +1,3 @@
-// src/infrastructure/controllers/auth.controller.ts
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthenticateUserUseCase } from '../../application/use-cases/authenticate-user.use-case';
 import { LoginDto } from '../../application/dtos/login.dto';

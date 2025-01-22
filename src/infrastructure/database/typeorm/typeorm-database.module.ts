@@ -1,4 +1,3 @@
-// src/infrastructure/database/typeorm-database.module.ts
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
